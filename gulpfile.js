@@ -23,7 +23,7 @@ build.rig.getTasks = function () {
 
 build.initialize(gulp);
 
-gulp.task('webpart-major', function (done) {
+gulp.task('version-major', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
   var majorIndex = webpartVersionIndexes[0];
@@ -44,7 +44,7 @@ gulp.task('webpart-major', function (done) {
   done();
 });
 
-gulp.task('webpart-minor', function (done) {
+gulp.task('version-minor', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
   var minorIndex = webpartVersionIndexes[1];
@@ -65,7 +65,7 @@ gulp.task('webpart-minor', function (done) {
   done();
 });
 
-gulp.task('webpart-build', function (done) {
+gulp.task('version-build', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
   var buildIndex = webpartVersionIndexes[2];
@@ -86,7 +86,7 @@ gulp.task('webpart-build', function (done) {
   done();
 });
 
-gulp.task('webpart-revision', function (done) {
+gulp.task('version-revision', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
   var revisionIndex = webpartVersionIndexes[3];
