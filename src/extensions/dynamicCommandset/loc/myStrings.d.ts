@@ -1,4 +1,4 @@
-declare interface IDynamicCommandsetCommandSetStrings {
+declare interface IDynamicCommandsetStrings {
   Command1: string;
   Command2: string;
   Command3: string;
@@ -6,7 +6,7 @@ declare interface IDynamicCommandsetCommandSetStrings {
   Command5: string;
 }
 
-declare module 'DynamicCommandsetCommandSetStrings' {
-  const strings: IDynamicCommandsetCommandSetStrings;
+declare module 'DynamicCommandsetStrings' {
+  const strings: IDynamicCommandsetStrings;
   export = strings;
 }
