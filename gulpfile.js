@@ -7,8 +7,7 @@ const fs = require('fs');
 
 // read configuration of web part solution file
 var pkgSolution = require('./config/package-solution.json');
-
-var versionIndexes = pkgSolution.solution.version.split('.');
+var webpartVersionIndexes = pkgSolution.solution.version.split('.');
 
 build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
 build.addSuppression(`Warning - lint - src/extensions/dynamicCommandset/DynamicCommandset.ts(32,22): error @microsoft/spfx/no-async-await: Usage of "async" has overhead when using in older browsers.`);
@@ -27,9 +26,9 @@ build.initialize(gulp);
 gulp.task('webpart-major', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
-  var majorIndex = versionIndexes[0];
+  var majorIndex = webpartVersionIndexes[0];
 
-  var newVersion = (Number(majorIndex) + 1).toString() + '.' + versionIndexes[1] + '.' + versionIndexes[2] + '.' + versionIndexes[3];
+  var newVersion = (Number(majorIndex) + 1).toString() + '.' + webpartVersionIndexes[1] + '.' + webpartVersionIndexes[2] + '.' + webpartVersionIndexes[3];
 
   pkgSolution.solution.version = newVersion;
 
@@ -48,9 +47,9 @@ gulp.task('webpart-major', function (done) {
 gulp.task('webpart-minor', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
-  var minorIndex = versionIndexes[1];
+  var minorIndex = webpartVersionIndexes[1];
 
-  var newVersion = versionIndexes[0] + '.' + (Number(minorIndex) + 1).toString() + '.' + versionIndexes[2] + '.' + versionIndexes[3];
+  var newVersion = webpartVersionIndexes[0] + '.' + (Number(minorIndex) + 1).toString() + '.' + webpartVersionIndexes[2] + '.' + webpartVersionIndexes[3];
 
   pkgSolution.solution.version = newVersion;
 
@@ -69,9 +68,9 @@ gulp.task('webpart-minor', function (done) {
 gulp.task('webpart-build', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
-  var buildIndex = versionIndexes[2];
+  var buildIndex = webpartVersionIndexes[2];
 
-  var newVersion = versionIndexes[0] + '.' + versionIndexes[1] + '.' + (Number(buildIndex) + 1).toString() + '.' + versionIndexes[3];
+  var newVersion = webpartVersionIndexes[0] + '.' + webpartVersionIndexes[1] + '.' + (Number(buildIndex) + 1).toString() + '.' + webpartVersionIndexes[3];
 
   pkgSolution.solution.version = newVersion;
 
@@ -90,9 +89,9 @@ gulp.task('webpart-build', function (done) {
 gulp.task('webpart-revision', function (done) {
   gutil.log('Old Version:\t' + pkgSolution.solution.version);
 
-  var revisionIndex = versionIndexes[3];
+  var revisionIndex = webpartVersionIndexes[3];
 
-  var newVersion = versionIndexes[0] + '.' + versionIndexes[1] + '.' + versionIndexes[2] + '.' + (Number(revisionIndex) + 1).toString();
+  var newVersion = webpartVersionIndexes[0] + '.' + webpartVersionIndexes[1] + '.' + webpartVersionIndexes[2] + '.' + (Number(revisionIndex) + 1).toString();
 
   pkgSolution.solution.version = newVersion;
 

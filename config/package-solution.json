@@ -3,7 +3,7 @@
     "solution": {
         "name": "spfx-dynamic-commands",
         "id": "5e7d6a8e-06ca-4f93-8a7c-05ed3a45f869",
-        "version": "1.0.0.0",
+        "version": "1.0.0.1",
         "includeClientSideAssets": true,
         "skipFeatureDeployment": false,
         "isDomainIsolated": false,
@@ -30,7 +30,7 @@
                 "title": "Application Extension - Deployment of custom action",
                 "description": "Deploys a custom action with ClientSideComponentId association",
                 "id": "0089823b-1073-48d6-87ea-afa2e9554453",
-                "version": "1.0.0.0",
+                "version": "1.0.0.1",
                 "assets": {
                     "elementManifests": [
                         "elements.xml",
