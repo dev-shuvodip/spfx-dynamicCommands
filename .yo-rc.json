@@ -1,0 +1,17 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.0",
+    "libraryName": "spfx-dynamic-commands",
+    "libraryId": "5e7d6a8e-06ca-4f93-8a7c-05ed3a45f869",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "spfx-dynamic-commands",
+    "solutionShortDescription": "spfx-dynamic-commands description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "extension",
+    "extensionType": "ListViewCommandSet"
+  }
+}

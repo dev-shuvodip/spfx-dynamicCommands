@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://developmentcentral.sharepoint.com/sites/DeveloperShuvodip/Lists/Requests%20Workflow/AllItems.aspx",
+      "customActions": {
+        "c51ed604-92ea-4de1-b205-d7e0ff01c7ef": {
+          "location": "ClientSideExtension.ListViewCommandSet.CommandBar"
+        }
+      }
+    },
+    "dynamicCommandset": {
+      "pageUrl": "https://developmentcentral.sharepoint.com/sites/DeveloperShuvodip/Lists/Requests%20Workflow/AllItems.aspx",
+      "customActions": {
+        "c51ed604-92ea-4de1-b205-d7e0ff01c7ef": {
+          "location": "ClientSideExtension.ListViewCommandSet.CommandBar"
+        }
+      }
+    }
+  }
+}
