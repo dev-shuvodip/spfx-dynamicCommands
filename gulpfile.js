@@ -11,6 +11,7 @@ var webpartVersionIndexes = pkgSolution.solution.version.split('.');
 
 build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
 build.addSuppression(`Warning - lint - src/extensions/dynamicCommandset/DynamicCommandset.ts(33,22): error @microsoft/spfx/no-async-await: Usage of "async" has overhead when using in older browsers.`);
+build.addSuppression(`Warning - lint - src/extensions/customListFormCustomizer/CustomListFormCustomizer.ts(110,21): error @microsoft/spfx/no-async-await: Usage of "async" has overhead when using in older browsers.`);
 var getTasks = build.rig.getTasks;
 build.rig.getTasks = function () {
   var result = getTasks.call(build.rig);

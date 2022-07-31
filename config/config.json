@@ -9,10 +9,19 @@
           "manifest": "./src/extensions/dynamicCommandset/DynamicCommandset.manifest.json"
         }
       ]
+    },
+    "custom-list-form-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/customListFormCustomizer/CustomListFormCustomizer.js",
+          "manifest": "./src/extensions/customListFormCustomizer/CustomListFormCustomizer.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "DynamicCommandSetStrings": "lib/extensions/dynamicCommandset/loc/{locale}.js"
+    "DynamicCommandSetStrings": "lib/extensions/dynamicCommandset/loc/{locale}.js",
+    "CustomListFormCustomizerStrings": "lib/extensions/customListFormCustomizer/loc/{locale}.js"
   }
 }

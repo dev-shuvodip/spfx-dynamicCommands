@@ -1,46 +1,46 @@
 {
-    "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
-    "solution": {
-        "name": "spfx-dynamic-commands",
-        "id": "5e7d6a8e-06ca-4f93-8a7c-05ed3a45f869",
-        "version": "1.0.0.2",
-        "includeClientSideAssets": true,
-        "skipFeatureDeployment": false,
-        "isDomainIsolated": false,
-        "developer": {
-            "name": "Shuvodip Ray",
-            "websiteUrl": "https://developmentcentral.sharepoint.com/sites/DeveloperShuvodip",
-            "privacyUrl": "",
-            "termsOfUseUrl": "",
-            "mpnId": "Undefined-1.15.0"
-        },
-        "metadata": {
-            "shortDescription": {
-                "default": "Dynamic List view commands and customized list forms"
-            },
-            "longDescription": {
-                "default": "This webpart adds customized list form to Request Workflow lists and enables custom commands dynamically based on the current list view"
-            },
-            "screenshotPaths": [],
-            "videoUrl": "",
-            "categories": []
-        },
-        "features": [
-            {
-                "title": "Application Extension - Deployment of custom action",
-                "description": "Deploys a custom action with ClientSideComponentId association",
-                "id": "0089823b-1073-48d6-87ea-afa2e9554453",
-                "version": "1.0.0.1",
-                "assets": {
-                    "elementManifests": [
-                        "elements.xml",
-                        "ClientSideInstance.xml"
-                    ]
-                }
-            }
-        ]
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spfx-dynamic-commands",
+    "id": "5e7d6a8e-06ca-4f93-8a7c-05ed3a45f869",
+    "version": "2.0.1.3",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": false,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "Shuvodip Ray",
+      "websiteUrl": "https://developmentcentral.sharepoint.com/sites/DeveloperShuvodip",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.15.0"
     },
-    "paths": {
-        "zippedPackage": "solution/spfx-dynamic-commands.sppkg"
-    }
+    "metadata": {
+      "shortDescription": {
+        "default": "Dynamic List view commands and customized list forms"
+      },
+      "longDescription": {
+        "default": "This webpart adds customized list form to Request Workflow lists and enables custom commands dynamically based on the current list view"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "Application Extension - Deployment of custom action",
+        "description": "Deploys a custom action with ClientSideComponentId association",
+        "id": "0089823b-1073-48d6-87ea-afa2e9554453",
+        "version": "1.0.0.1",
+        "assets": {
+          "elementManifests": [
+            "elements.xml",
+            "ClientSideInstance.xml"
+          ]
+        }
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/spfx-dynamic-commands.sppkg"
+  }
 }
