@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <Field ID="{430B2909-FBE8-410E-8396-BD341D6C82DA}"
+            Name="RequestID"
+            DisplayName="Request ID"
+            Type="Text"
+            Required="True"
+            Group="Request Columns" />
+
+    <Field ID="{03BC9554-B769-46F1-BAC6-F247E0E5FD4D}"
+            Name="ReceivedDate"
+            DisplayName="Received Date"
+            Type="DateTime"
+            Required="False"
+            Group="Request Columns" />
+
+    <Field ID="{878C61F5-AEF5-4FFA-B3A4-C28290D7FC6C}"
+            Name="Status"
+            DisplayName="Status"
+            Type="Choice"
+            Required="FALSE"
+            Group="Request Columns">
+        <CHOICES>
+            <CHOICE>In-transit</CHOICE>
+            <CHOICE>Received</CHOICE>
+            <CHOICE>Processing</CHOICE>
+            <CHOICE>Processed</CHOICE>
+            <CHOICE>Completed</CHOICE>
+        </CHOICES>
+    </Field>
+
+    <Field ID="{845DAD01-089C-40F9-959F-55C4D03EC768}"
+            Name="Approved"
+            DisplayName="Approved"
+            Type="Boolean"
+            Required="False"
+            Group="Request Columns" />
+            
+    <ContentType ID="0x010043B3F666C8834750936A1A2EC02523BB"
+            Name="Request Item"
+            Group="Request Items"
+            Description="Request Items for Requests Workflow">
+        <FieldRefs>
+            <FieldRef ID="{430B2909-FBE8-410E-8396-BD341D6C82DA}" />
+            <FieldRef ID="{03BC9554-B769-46F1-BAC6-F247E0E5FD4D}" />
+            <FieldRef ID="{878C61F5-AEF5-4FFA-B3A4-C28290D7FC6C}" />
+            <FieldRef ID="{845DAD01-089C-40F9-959F-55C4D03EC768}" />
+        </FieldRefs>
+    </ContentType>
+</Elements>
