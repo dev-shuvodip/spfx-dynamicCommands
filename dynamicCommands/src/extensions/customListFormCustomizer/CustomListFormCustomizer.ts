@@ -10,6 +10,11 @@ import {
   SPHttpClient,
   SPHttpClientResponse
 } from '@microsoft/sp-http';
+
+import '../../../../angular-forms/dist/angular-forms/main';
+import '../../../../angular-forms/dist/angular-forms/polyfills';
+require('../../../../angular-forms/dist/angular-forms/styles.css');
+
 /**
  * If your form customizer uses the ClientSideComponentProperties JSON input,
  * it will be deserialized into the BaseExtension.properties object.
@@ -17,7 +22,6 @@ import {
  */
 export interface ICustomListFormCustomizerProperties {
   // This is an example; replace with your own property
-  sampleText?: string;
 }
 
 const LOG_SOURCE: string = 'CustomListFormCustomizer';
@@ -32,7 +36,7 @@ export default class CustomListFormCustomizer
   // Added for item's etag to ensure integrity of the update; used with edit form
   private _etag?: string;
 
-  public onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     // Add your custom initialization to this method. The framework will wait
     // for the returned promise to resolve before rendering the form.
     Log.info(LOG_SOURCE, 'Activated CustomListFormCustomizer with properties:');
@@ -72,33 +76,54 @@ export default class CustomListFormCustomizer
 
       this.domElement.innerHTML =
         `<div class="${styles.customListFormCustomizer}">
-                      <label for="title">${strings.Title}</label>
-                      <br />
-                        ${this._item?.Title}
-                      <br />
-                      <br />
-                      <input type="button" id="cancel" value="${strings.Close}" />
-                    </div>`;
+            <form-custom displayMode="${FormDisplayMode.Display.toString()}"></form-custom>
+                <label for="title">${strings.Title}</label>
+                <br />
+                ${this._item?.Title}
+                <br />
+                <br />
+                <input type="button" id="cancel" value="${strings.Close}" />
+        </div>`;
 
       document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
     }
     // render new/edit form
     else {
-      this.domElement.innerHTML =
-        `<div class="${styles.customListFormCustomizer}">
-                    <label for="title">${strings.Title}</label><br />
-                    <input type="text" id="title" value="${this._item?.Title || ''}"/>
-                    <br />
-                    <br />
-                    <input type="button" id="save" value="${strings.Save}" />
-                    <input type="button" id="cancel" value="${strings.Cancel}" />
-                    <br />
-                    <br />
-                    <div class="${styles.error}"></div>
-                  </div>`;
+      if (this.displayMode === FormDisplayMode.New) {
+        this.domElement.innerHTML =
+          `<div class="${styles.customListFormCustomizer}">
+            <form-custom displayMode="${FormDisplayMode.New}"></form-custom>
+                <label for="title">${strings.Title}</label><br />
+                <input type="text" id="title" value="${this._item?.Title || ''}"/>
+                <br />
+                <br />
+                <input type="button" id="save" value="${strings.Save}" />
+                <input type="button" id="cancel" value="${strings.Cancel}" />
+                <br />
+                <br />
+                <div class="${styles.error}"></div>
+          </div>`;
 
-      document.getElementById('save').addEventListener('click', this._onSave.bind(this));
-      document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
+        document.getElementById('save').addEventListener('click', this._onSave.bind(this));
+        document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
+      } else {
+        this.domElement.innerHTML =
+          `<div class="${styles.customListFormCustomizer}">
+            <form-custom displayMode="${FormDisplayMode.Edit}"></form-custom>
+                <label for="title">${strings.Title}</label><br />
+                <input type="text" id="title" value="${this._item?.Title || ''}"/>
+                <br />
+                <br />
+                <input type="button" id="save" value="${strings.Save}" />
+                <input type="button" id="cancel" value="${strings.Cancel}" />
+                <br />
+                <br />
+                <div class="${styles.error}"></div>
+          </div>`;
+
+        document.getElementById('save').addEventListener('click', this._onSave.bind(this));
+        document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
+      }
     }
   }
 

@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"path": "angular-forms"
+		},
+		{
+			"path": "dynamicCommands"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": ".\\node_modules\\typescript\\lib",
+		"workbench.productIconTheme": "fluent-icons",
+		"workbench.colorTheme": "Andromeda Colorizer",
+		"editor.cursorStyle": "underline",
+		"editor.cursorBlinking": "smooth",
+		"editor.fontFamily": "JetBrains Mono",
+		"editor.fontSize": 11,
+		"editor.fontWeight": "400",
+		"editor.letterSpacing": 1.2,
+		"editor.lineHeight": 22,
+		"editor.fontLigatures": true,
+		"editor.formatOnPaste": true,
+		"editor.formatOnType": true,
+		"diffEditor.codeLens": true,
+		"workbench.preferredDarkColorTheme": "Andromeda Colorizer",
+		"workbench.editor.restoreViewState": false,
+		"terminal.integrated.cursorBlinking": true,
+		"terminal.integrated.fontFamily": "JetBrains Mono",
+		"terminal.integrated.fontSize": 11,
+		"debug.console.fontFamily": "JetBrains Mono",
+		"debug.console.fontSize": 11
+	}
+}
