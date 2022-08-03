@@ -3,6 +3,10 @@ define([], function() {
     "Save": "Save",
     "Cancel": "Cancel",
     "Close": "Close",
-    "Title": "Title"
+    "Title": "Title",
+    "RequestID": "RequestID",
+    "ReceivedDate": "ReceivedDate",
+    "Status": "Status",
+    "Approved": "Approved"
   }
 });
