@@ -16,6 +16,7 @@
     "@microsoft/sp-lodash-subset": "1.15.0",
     "@microsoft/sp-office-ui-fabric-core": "1.15.0",
     "@pnp/graph": "^3.5.1",
+    "@pnp/logging": "^3.5.1",
     "@pnp/sp": "^3.5.1",
     "tslib": "2.3.1"
   },

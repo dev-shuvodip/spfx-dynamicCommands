@@ -10,6 +10,8 @@ import {
   SPHttpClient,
   SPHttpClientResponse
 } from '@microsoft/sp-http';
+import { metadata } from './models/item.model';
+import SharePointService from './services/sharepoint.service';
 
 import '../../../../angular-forms/dist/angular-forms/main';
 import '../../../../angular-forms/dist/angular-forms/polyfills';
@@ -29,12 +31,8 @@ const LOG_SOURCE: string = 'CustomListFormCustomizer';
 export default class CustomListFormCustomizer
   extends BaseFormCustomizer<ICustomListFormCustomizerProperties> {
 
-  // Added for the item to show in the form; use with edit and view form
-  private _item: {
-    Title?: string;
-  };
-  // Added for item's etag to ensure integrity of the update; used with edit form
-  private _etag?: string;
+  // Added for the item to show in the form and for item's etag to ensure integrity of the update; use with edit and view form
+  private _metadata: metadata;
 
   public async onInit(): Promise<void> {
     // Add your custom initialization to this method. The framework will wait
@@ -42,32 +40,16 @@ export default class CustomListFormCustomizer
     Log.info(LOG_SOURCE, 'Activated CustomListFormCustomizer with properties:');
     Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
 
+    // init SharePoint Service
+    SharePointService.Init(this.context);
+
     if (this.displayMode === FormDisplayMode.New) {
       // we're creating a new item so nothing to load
       return Promise.resolve();
     }
 
     // load item to display on the form
-    return this.context.spHttpClient
-      .get(this.context.pageContext.web.absoluteUrl + `/_api/web/lists/getbytitle('${this.context.list.title}')/items(${this.context.itemId})`, SPHttpClient.configurations.v1, {
-        headers: {
-          accept: 'application/json;odata.metadata=none'
-        }
-      })
-      .then(res => {
-        if (res.ok) {
-          // store etag in case we'll need to update the item
-          this._etag = res.headers.get('ETag');
-          return res.json();
-        }
-        else {
-          return Promise.reject(res.statusText);
-        }
-      })
-      .then(item => {
-        this._item = item;
-        return Promise.resolve();
-      });
+    this._metadata = await SharePointService.getitem(this.context);
   }
 
   public render(): void {
@@ -76,10 +58,10 @@ export default class CustomListFormCustomizer
 
       this.domElement.innerHTML =
         `<div class="${styles.customListFormCustomizer}">
-            <form-custom displayMode="${FormDisplayMode.Display.toString()}"></form-custom>
+            <form-custom displayMode="${this.displayMode.toString()}"></form-custom>
                 <label for="title">${strings.Title}</label>
                 <br />
-                ${this._item?.Title}
+                ${this._metadata?._item.Title}
                 <br />
                 <br />
                 <input type="button" id="cancel" value="${strings.Close}" />
@@ -89,12 +71,11 @@ export default class CustomListFormCustomizer
     }
     // render new/edit form
     else {
-      if (this.displayMode === FormDisplayMode.New) {
-        this.domElement.innerHTML =
-          `<div class="${styles.customListFormCustomizer}">
-            <form-custom displayMode="${FormDisplayMode.New}"></form-custom>
+      this.domElement.innerHTML =
+        `<div class="${styles.customListFormCustomizer}">
+            <form-custom displayMode="${this.displayMode.toString()}"></form-custom>
                 <label for="title">${strings.Title}</label><br />
-                <input type="text" id="title" value="${this._item?.Title || ''}"/>
+                <input type="text" id="title" value="${this._metadata?._item.Title || ''}"/>
                 <br />
                 <br />
                 <input type="button" id="save" value="${strings.Save}" />
@@ -104,26 +85,8 @@ export default class CustomListFormCustomizer
                 <div class="${styles.error}"></div>
           </div>`;
 
-        document.getElementById('save').addEventListener('click', this._onSave.bind(this));
-        document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
-      } else {
-        this.domElement.innerHTML =
-          `<div class="${styles.customListFormCustomizer}">
-            <form-custom displayMode="${FormDisplayMode.Edit}"></form-custom>
-                <label for="title">${strings.Title}</label><br />
-                <input type="text" id="title" value="${this._item?.Title || ''}"/>
-                <br />
-                <br />
-                <input type="button" id="save" value="${strings.Save}" />
-                <input type="button" id="cancel" value="${strings.Cancel}" />
-                <br />
-                <br />
-                <div class="${styles.error}"></div>
-          </div>`;
-
-        document.getElementById('save').addEventListener('click', this._onSave.bind(this));
-        document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
-      }
+      document.getElementById('save').addEventListener('click', this._onSave.bind(this));
+      document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
     }
   }
 
@@ -141,12 +104,14 @@ export default class CustomListFormCustomizer
     let request: Promise<SPHttpClientResponse>;
     const title: string = (document.getElementById('title') as HTMLInputElement).value;
 
+    this._metadata._item.Title = title;
+
     switch (this.displayMode) {
       case FormDisplayMode.New:
-        request = this._createItem(title);
+        request = SharePointService.createItem(this.context, this._metadata);
         break;
       case FormDisplayMode.Edit:
-        request = this._updateItem(title);
+        request = SharePointService.updateItem(this.context, this._metadata);
     }
 
     const res: SPHttpClientResponse = await request;
@@ -167,31 +132,5 @@ export default class CustomListFormCustomizer
 
     // You MUST call this.formClosed() after you close the form.
     this.formClosed();
-  }
-
-  private _createItem(title: string): Promise<SPHttpClientResponse> {
-    return this.context.spHttpClient
-      .post(this.context.pageContext.web.absoluteUrl + `/_api/web/lists/getByTitle('${this.context.list.title}')/items`, SPHttpClient.configurations.v1, {
-        headers: {
-          'content-type': 'application/json;odata.metadata=none'
-        },
-        body: JSON.stringify({
-          Title: title
-        })
-      });
-  }
-
-  private _updateItem(title: string): Promise<SPHttpClientResponse> {
-    return this.context.spHttpClient
-      .post(this.context.pageContext.web.absoluteUrl + `/_api/web/lists/getByTitle('${this.context.list.title}')/items(${this.context.itemId})`, SPHttpClient.configurations.v1, {
-        headers: {
-          'content-type': 'application/json;odata.metadata=none',
-          'if-match': this._etag,
-          'x-http-method': 'MERGE'
-        },
-        body: JSON.stringify({
-          Title: title
-        })
-      });
   }
 }
