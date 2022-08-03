@@ -93,7 +93,7 @@ export default class DynamicCommandset extends BaseListViewCommandSet<IDynamicCo
     }
   }
 
-  private _onListViewStateChanged = (args: ListViewStateChangedEventArgs): void => {
+  private _onListViewStateChanged = (_args: ListViewStateChangedEventArgs): void => {
     Log.info(LOG_SOURCE, 'List view state changed');
 
     const compareOneCommand: Command = this.tryGetCommand('COMMAND_1');
