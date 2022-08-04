@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'form-custom',
@@ -10,11 +6,11 @@ import {
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-
-  @Input() displayMode!: string;
+  @Input() metadata!: string
 
   constructor() { }
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {
+    console.log(JSON.parse(this.metadata))
+  }
 }

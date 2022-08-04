@@ -11,20 +11,13 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "skipLibCheck": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2017",
-    "module": "es2020",
-    "typeRoots": [
-      "webpack-env"
-    ],
-    "types": [
-      "webpack-env"
-    ],
+    "module": "ES2020",
     "lib": [
       "ES2018",
       "dom"
