@@ -7,7 +7,7 @@ export interface item {
 }
 
 export interface metadata {
-    _id: number;
+    _itemId: number;
     _listId: string;
     _displayMode: string;
 }
