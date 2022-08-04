@@ -47,6 +47,15 @@ export default class CustomListFormCustomizer
 
     if (this.displayMode === FormDisplayMode.New) {
       // we're creating a new item so nothing to load
+      this._itemData = {
+        _item: {
+          RequestID: '',
+          ReceivedDate: '',
+          Status: '',
+          Approved: false
+        },
+        _etag: ''
+      }
       return Promise.resolve();
     }
 
@@ -111,14 +120,22 @@ export default class CustomListFormCustomizer
     let request: Promise<SPHttpClientResponse>;
     const title: string = (document.getElementById('title') as HTMLInputElement).value;
 
-    this._itemData._item.Title = title;
-
     switch (this.displayMode) {
-      case FormDisplayMode.New:
-        request = SharePointService.createItem(this.context, this._itemData);
+      case FormDisplayMode.New: {
+        const newItem: item = {
+          RequestID: '',
+          ReceivedDate: '',
+          Status: '',
+          Approved: false
+        };
+        newItem.Title = title;
+        request = SharePointService.createItem(this.context, newItem);
         break;
-      case FormDisplayMode.Edit:
+      }
+      case FormDisplayMode.Edit: {
+        this._itemData._item.Title = title;
         request = SharePointService.updateItem(this.context, this._itemData);
+      }
     }
 
     const res: SPHttpClientResponse = await request;

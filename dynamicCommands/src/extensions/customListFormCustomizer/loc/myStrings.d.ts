@@ -3,10 +3,10 @@ declare interface ICustomListFormCustomizerStrings {
   Cancel: string;
   Close: string;
   Title: string;
-  RequestID: string
-  ReceivedDate: string
-  Status: string
-  Approved: boolean
+  RequestID: string;
+  ReceivedDate: string;
+  Status: string;
+  Approved: boolean;
 }
 
 declare module 'CustomListFormCustomizerStrings' {

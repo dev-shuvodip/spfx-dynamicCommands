@@ -47,14 +47,14 @@ export default class SharePointService {
         return { _item: this.item, _etag: this.etag };
     }
 
-    public static async createItem(context: FormCustomizerContext, itemData: itemData): Promise<SPHttpClientResponse> {
+    public static async createItem(context: FormCustomizerContext, newItem: item): Promise<SPHttpClientResponse> {
         return context.spHttpClient
             .post(context.pageContext.web.absoluteUrl + `/_api/web/lists/getByTitle('${context.list.title}')/items`, SPHttpClient.configurations.v1, {
                 headers: {
                     'content-type': 'application/json;odata.metadata=none'
                 },
                 body: JSON.stringify({
-                    Title: itemData._item.Title
+                    Title: newItem.Title
                 })
             });
     }
