@@ -10,12 +10,12 @@ import {
   SPHttpClient,
   SPHttpClientResponse
 } from '@microsoft/sp-http';
-import { metadata } from './models/item.model';
+import { item, itemData, metadata } from './models/item.model';
 import SharePointService from './services/sharepoint.service';
 
-import '../../../../angular-forms/dist/angular-forms/main';
-import '../../../../angular-forms/dist/angular-forms/polyfills';
-require('../../../../angular-forms/dist/angular-forms/styles.css');
+import '../../../../angular-form/dist/angular-form/main';
+import '../../../../angular-form/dist/angular-form/polyfills';
+require('../../../../angular-form/dist/angular-form/styles.css');
 
 /**
  * If your form customizer uses the ClientSideComponentProperties JSON input,
@@ -31,8 +31,10 @@ const LOG_SOURCE: string = 'CustomListFormCustomizer';
 export default class CustomListFormCustomizer
   extends BaseFormCustomizer<ICustomListFormCustomizerProperties> {
 
-  // Added for the item to show in the form and for item's etag to ensure integrity of the update; use with edit and view form
   private _metadata: metadata;
+
+  // Added for the item to show in the form and for item's etag to ensure integrity of the update; use with edit and view form
+  private _itemData: itemData;
 
   public async onInit(): Promise<void> {
     // Add your custom initialization to this method. The framework will wait
@@ -49,22 +51,27 @@ export default class CustomListFormCustomizer
     }
 
     // load item to display on the form
-    this._metadata = await SharePointService.getitem(this.context);
+    this._itemData = await SharePointService.getitem(this.context);
   }
 
   public render(): void {
+    this._metadata = {
+      _itemId: this.context.itemId,
+      _listId: this.context.list.guid.toString(),
+      _displayMode: this.displayMode.toString()
+    }
+
     // render view form
     if (this.displayMode === FormDisplayMode.Display) {
-
       this.domElement.innerHTML =
         `<div class="${styles.customListFormCustomizer}">
-            <form-custom displayMode="${this.displayMode.toString()}"></form-custom>
-                <label for="title">${strings.Title}</label>
-                <br />
-                ${this._metadata?._item.Title}
-                <br />
-                <br />
-                <input type="button" id="cancel" value="${strings.Close}" />
+          <form-custom metadata='${JSON.stringify(this._metadata)}'></form-custom>
+          <label for="title">${strings.Title}</label>
+          <br />
+          ${this._itemData?._item.Title}
+          <br />
+          <br />
+          <input type="button" id="cancel" value="${strings.Close}" />
         </div>`;
 
       document.getElementById('cancel').addEventListener('click', this._onClose.bind(this));
@@ -73,9 +80,9 @@ export default class CustomListFormCustomizer
     else {
       this.domElement.innerHTML =
         `<div class="${styles.customListFormCustomizer}">
-            <form-custom displayMode="${this.displayMode.toString()}"></form-custom>
+            <form-custom metadata='${JSON.stringify(this._metadata)}'></form-custom>
                 <label for="title">${strings.Title}</label><br />
-                <input type="text" id="title" value="${this._metadata?._item.Title || ''}"/>
+                <input type="text" id="title" value="${this._itemData?._item.Title || ''}"/>
                 <br />
                 <br />
                 <input type="button" id="save" value="${strings.Save}" />
@@ -104,14 +111,14 @@ export default class CustomListFormCustomizer
     let request: Promise<SPHttpClientResponse>;
     const title: string = (document.getElementById('title') as HTMLInputElement).value;
 
-    this._metadata._item.Title = title;
+    this._itemData._item.Title = title;
 
     switch (this.displayMode) {
       case FormDisplayMode.New:
-        request = SharePointService.createItem(this.context, this._metadata);
+        request = SharePointService.createItem(this.context, this._itemData);
         break;
       case FormDisplayMode.Edit:
-        request = SharePointService.updateItem(this.context, this._metadata);
+        request = SharePointService.updateItem(this.context, this._itemData);
     }
 
     const res: SPHttpClientResponse = await request;

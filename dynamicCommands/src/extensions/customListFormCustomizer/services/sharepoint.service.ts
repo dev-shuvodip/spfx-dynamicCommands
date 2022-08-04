@@ -3,7 +3,7 @@ import {
     SPHttpClient,
     SPHttpClientResponse
 } from '@microsoft/sp-http';
-import { item, metadata } from "../models/item.model";
+import { item, itemData } from "../models/item.model";
 import { ISPFXContext, spfi, SPFI, SPFx } from "@pnp/sp";
 import { LogLevel, PnPLogging } from "@pnp/logging";
 
@@ -22,7 +22,7 @@ export default class SharePointService {
         }
     }
 
-    public static async getitem(context: FormCustomizerContext): Promise<metadata> {
+    public static async getitem(context: FormCustomizerContext): Promise<itemData> {
         await context.spHttpClient
             .get(context.pageContext.web.absoluteUrl + `/_api/web/lists/getbytitle('${context.list.title}')/items(${context.itemId})`, SPHttpClient.configurations.v1, {
                 headers: {
@@ -47,28 +47,28 @@ export default class SharePointService {
         return { _item: this.item, _etag: this.etag };
     }
 
-    public static async createItem(context: FormCustomizerContext, metadata: metadata): Promise<SPHttpClientResponse> {
+    public static async createItem(context: FormCustomizerContext, itemData: itemData): Promise<SPHttpClientResponse> {
         return context.spHttpClient
             .post(context.pageContext.web.absoluteUrl + `/_api/web/lists/getByTitle('${context.list.title}')/items`, SPHttpClient.configurations.v1, {
                 headers: {
                     'content-type': 'application/json;odata.metadata=none'
                 },
                 body: JSON.stringify({
-                    Title: metadata._item.Title
+                    Title: itemData._item.Title
                 })
             });
     }
 
-    public static async updateItem(context: FormCustomizerContext, metadata: metadata): Promise<SPHttpClientResponse> {
+    public static async updateItem(context: FormCustomizerContext, itemData: itemData): Promise<SPHttpClientResponse> {
         return context.spHttpClient
             .post(context.pageContext.web.absoluteUrl + `/_api/web/lists/getByTitle('${context.list.title}')/items(${context.itemId})`, SPHttpClient.configurations.v1, {
                 headers: {
                     'content-type': 'application/json;odata.metadata=none',
-                    'if-match': metadata._etag,
+                    'if-match': itemData._etag,
                     'x-http-method': 'MERGE'
                 },
                 body: JSON.stringify({
-                    Title: metadata._item.Title
+                    Title: itemData._item.Title
                 })
             });
     }

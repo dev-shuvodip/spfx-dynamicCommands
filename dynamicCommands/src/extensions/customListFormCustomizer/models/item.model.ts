@@ -7,6 +7,12 @@ export interface item {
 }
 
 export interface metadata {
+    _itemId: number;
+    _listId: string;
+    _displayMode: string;
+}
+
+export interface itemData {
     _item: item;
-    _etag?: string;
+    _etag: string;
 }
