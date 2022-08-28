@@ -37,6 +37,8 @@ export default class CustomListFormCustomizer
   private _itemData: itemData;
 
   public async onInit(): Promise<void> {
+    window['webPartContext'] = this.context;
+
     // Add your custom initialization to this method. The framework will wait
     // for the returned promise to resolve before rendering the form.
     Log.info(LOG_SOURCE, 'Activated CustomListFormCustomizer with properties:');
@@ -74,7 +76,6 @@ export default class CustomListFormCustomizer
     if (this.displayMode === FormDisplayMode.Display) {
       this.domElement.innerHTML =
         `<div class="${styles.customListFormCustomizer}">
-          <form-custom metadata='${JSON.stringify(this._metadata)}'></form-custom>
           <label for="title">${strings.Title}</label>
           <br />
           ${this._itemData?._item.Title}
@@ -89,7 +90,7 @@ export default class CustomListFormCustomizer
     else {
       this.domElement.innerHTML =
         `<div class="${styles.customListFormCustomizer}">
-            <form-custom metadata='${JSON.stringify(this._metadata)}'></form-custom>
+
                 <label for="title">${strings.Title}</label><br />
                 <input type="text" id="title" value="${this._itemData?._item.Title || ''}"/>
                 <br />

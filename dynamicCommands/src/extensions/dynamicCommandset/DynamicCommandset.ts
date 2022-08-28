@@ -22,14 +22,6 @@ const LOG_SOURCE: string = 'DynamicCommandset';
 
 export default class DynamicCommandset extends BaseListViewCommandSet<IDynamicCommandsetCommandSetProperties> {
 
-  private _sp: SPFI;
-  public get sp(): SPFI {
-    return this._sp;
-  }
-  public set sp(value: SPFI) {
-    this._sp = value;
-  }
-
   public async onInit(): Promise<void> {
     Log.info(LOG_SOURCE, 'Initialized DynamicCommandset');
 
@@ -66,7 +58,6 @@ export default class DynamicCommandset extends BaseListViewCommandSet<IDynamicCo
 
     this.context.listView.listViewStateChangedEvent.add(this, this._onListViewStateChanged);
 
-    this.sp = spfi().using(SPFx(this.context));
     await super.onInit();
     return Promise.resolve();
   }

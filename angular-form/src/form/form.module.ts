@@ -4,17 +4,21 @@ import { FormComponent } from './form.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { createCustomElement } from '@angular/elements';
+import { HttpClientModule } from '@angular/common/http';
+import { ChartComponent } from './chart/chart.component';
 
 
 
 @NgModule({
   declarations: [
-    FormComponent
+    FormComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   entryComponents: [FormComponent]

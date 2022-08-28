@@ -18,7 +18,9 @@
     "@pnp/graph": "^3.5.1",
     "@pnp/logging": "^3.5.1",
     "@pnp/sp": "^3.5.1",
-    "tslib": "2.3.1"
+    "tslib": "2.3.1",
+    "@microsoft/sp-property-pane": "1.15.0",
+    "@microsoft/sp-webpart-base": "1.15.0"
   },
   "devDependencies": {
     "@microsoft/rush-stack-compiler-4.5": "0.2.2",

@@ -11,7 +11,6 @@
     "solutionShortDescription": "This feature enables custom list view commands dynamically based on the current list view and modifies default list forms",
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
-    "componentType": "extension",
-    "extensionType": "FormCustomizer"
+    "componentType": "webpart"
   }
 }

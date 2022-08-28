@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import { item, metadata } from 'src/models/item.model';
+import { SharepointService } from './sharepoint.service';
+import { milestone } from 'src/models/milestone.model';
 
 @Component({
   selector: 'form-custom',
@@ -6,11 +12,24 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  @Input() metadata!: string
+  mileStone: milestone[] = []
+  chartReady!: boolean
+  labels: string[] = []
+  completedMileStone: number[] = []
+  incompleteMileStone: number[] = []
 
-  constructor() { }
+  constructor(private sharepointService: SharepointService) { }
 
   ngOnInit(): void {
-    console.log(JSON.parse(this.metadata))
+    this.sharepointService.GetMileStone().then((item: milestone[]): void => {
+      this.mileStone = item
+      this.mileStone.forEach((element) => {
+        this.completedMileStone.push(Math.round((element.CompletedMilestone / element.TotalMilestone) * 100))
+        this.incompleteMileStone.push(Math.round(((element.TotalMilestone - element.CompletedMilestone) / element.TotalMilestone) * 100))
+        this.labels.push(element.InternalPhaseName)
+      })
+    }).finally(() => {
+      this.chartReady = true
+    })
   }
 }

@@ -17,11 +17,20 @@
           "manifest": "./src/extensions/customListFormCustomizer/CustomListFormCustomizer.manifest.json"
         }
       ]
+    },
+    "milestones-poc-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/milestonesPoc/MilestonesPocWebPart.js",
+          "manifest": "./src/webparts/milestonesPoc/MilestonesPocWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
     "DynamicCommandSetStrings": "lib/extensions/dynamicCommandset/loc/{locale}.js",
-    "CustomListFormCustomizerStrings": "lib/extensions/customListFormCustomizer/loc/{locale}.js"
+    "CustomListFormCustomizerStrings": "lib/extensions/customListFormCustomizer/loc/{locale}.js",
+    "MilestonesPocWebPartStrings": "lib/webparts/milestonesPoc/loc/{locale}.js"
   }
 }
