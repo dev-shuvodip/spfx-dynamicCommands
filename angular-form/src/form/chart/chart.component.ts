@@ -123,7 +123,7 @@ export class ChartComponent implements OnInit {
     if (this.stackChart) {
       this.stackChart.destroy();
     }
-    
+
     this.stackChart = new Chart(this.stackCanvasContext, this.stackConfig);
   }
 }
