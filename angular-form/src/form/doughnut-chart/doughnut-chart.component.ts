@@ -59,11 +59,6 @@ export class DoughnutChartComponent implements OnInit {
         cutoutPercentage: 75,
         responsive: true,
         maintainAspectRatio: false,
-        elements: {
-          center: {
-            text: `this.percentCompletedEngagements.toString() % \n of milestones completed`
-          }
-        },
         plugins: {
           title: {
             display: true,
