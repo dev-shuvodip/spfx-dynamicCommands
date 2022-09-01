@@ -7,6 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
+
 export class ChartComponent implements OnInit {
   stackConfig: any
   stackCanvas: any

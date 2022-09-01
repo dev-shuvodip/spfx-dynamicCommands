@@ -8,8 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChartComponent } from './chart/chart.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 
-
-
 @NgModule({
   declarations: [
     FormComponent,
@@ -25,6 +23,7 @@ import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.componen
   providers: [],
   entryComponents: [FormComponent]
 })
+
 export class FormModule {
   constructor(private injector: Injector) { }
 

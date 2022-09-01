@@ -6,6 +6,7 @@ import { Chart, registerables } from 'chart.js';
   templateUrl: './doughnut-chart.component.html',
   styleUrls: ['./doughnut-chart.component.css']
 })
+
 export class DoughnutChartComponent implements OnInit {
   doughnutConfig: any
   doughnutCanvas: any

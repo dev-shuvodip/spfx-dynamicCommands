@@ -10,6 +10,7 @@ import { milestone } from 'src/models/milestone.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SharepointService {
   private readonly _context = (window as { [key: string]: any; })["webPartContext"] as any
   public get context() {

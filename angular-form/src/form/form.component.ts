@@ -11,6 +11,7 @@ import { milestone } from 'src/models/milestone.model';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
+
 export class FormComponent implements OnInit {
   mileStone: milestone[] = []
   chartReady!: boolean
