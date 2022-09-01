@@ -52,12 +52,12 @@ export class ChartComponent implements OnInit {
       },
       options: {
         indexAxis: 'y',
-        title: {
-          display: true,
-          text: 'MileStone'
-        },
         responsive: true,
         plugins: {
+          title: {
+            display: true,
+            text: 'Substantive Status by Process'
+          },
           datalabels: {
             color: 'white',
             display: function (context: any): boolean {
