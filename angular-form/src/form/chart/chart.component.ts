@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit {
         }, {
           label: 'Incomplete',
           data: this.incompleteMileStone,
-          backgroundColor: 'blue'
+          backgroundColor: 'rgb(202, 202, 202)'
         }]
       },
       options: {

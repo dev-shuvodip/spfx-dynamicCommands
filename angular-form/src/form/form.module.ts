@@ -6,13 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { createCustomElement } from '@angular/elements';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartComponent } from './chart/chart.component';
+import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 
 
 
 @NgModule({
   declarations: [
     FormComponent,
-    ChartComponent
+    ChartComponent,
+    DoughnutChartComponent
   ],
   imports: [
     CommonModule,

@@ -17,6 +17,8 @@ export class FormComponent implements OnInit {
   labels: string[] = []
   completedMileStone: number[] = []
   incompleteMileStone: number[] = []
+  totalEngagements: number = 0
+  completedEngagements: number = 0
 
   constructor(private sharepointService: SharepointService) { }
 
@@ -27,6 +29,8 @@ export class FormComponent implements OnInit {
         this.completedMileStone.push(Math.round((element.CompletedMilestone / element.TotalMilestone) * 100))
         this.incompleteMileStone.push(Math.round(((element.TotalMilestone - element.CompletedMilestone) / element.TotalMilestone) * 100))
         this.labels.push(element.InternalPhaseName)
+        this.totalEngagements += element.TotalMilestone
+        this.completedEngagements += element.CompletedMilestone
       })
     }).finally(() => {
       this.chartReady = true

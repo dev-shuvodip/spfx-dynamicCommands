@@ -1,0 +1,19 @@
+.outer {
+  position: relative;
+  height: 600px;
+}
+canvas {
+  position: absolute;
+}
+.percent {
+ position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 30px;
+    bottom: 0;
+    text-align: center
+}
+
+.text{
+  font-size: 15px;
+}
