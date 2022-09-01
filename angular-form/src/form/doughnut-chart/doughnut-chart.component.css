@@ -1,19 +1,17 @@
-.outer {
-  position: relative;
-  height: 600px;
-}
-canvas {
-  position: absolute;
-}
-.percent {
- position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    font-size: 30px;
-    bottom: 0;
-    text-align: center
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.text{
+.label {
+  position: absolute;
+  font-size: 30px;
+  text-align: center;
+  bottom: 0;
+}
+
+.subText {
   font-size: 15px;
 }
