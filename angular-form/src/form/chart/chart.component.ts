@@ -44,21 +44,7 @@ export class ChartComponent implements OnInit {
         datasets: [{
           label: 'Completed',
           data: this.completedMileStone,
-          backgroundColor: 'red'
-        }, {
-          label: 'Incomplete',
-          data: this.incompleteMileStone,
-          backgroundColor: 'rgb(202, 202, 202)'
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Substantive Status by Process'
-          },
+          backgroundColor: 'red',
           datalabels: {
             color: 'white',
             display: function (context: any): boolean {
@@ -70,9 +56,33 @@ export class ChartComponent implements OnInit {
             },
             formatter: (value: number) => Math.round(value).toFixed(0) + '%',
           }
+        }, {
+          label: 'Incomplete',
+          data: this.incompleteMileStone,
+          backgroundColor: 'rgb(202, 202, 202)',
+          datalabels: {
+            color: 'grey',
+            display: function (context: any): boolean {
+              maxStackCount = Math.max(...yAxesTicks)
+              return context.dataset.data[context.dataIndex] >= Math.abs(maxStackCount * (5 / 100));
+            },
+            font: {
+              weight: 'bold'
+            },
+            formatter: (value: number) => Math.round(value).toFixed(0) + '%',
+          }
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Substantive Status by Process'
+          }
         },
         // Core options
-        aspectRatio: 5 / 2,
         layout: {
           padding: {
             top: 24,
@@ -92,8 +102,12 @@ export class ChartComponent implements OnInit {
         },
         scales: {
           x: {
+            grid: {
+              display: false
+            },
             stacked: true,
             ticks: {
+              crossAlign: 'far',
               min: 0,
               max: 100,
               callback: function (value: string): string {
@@ -107,6 +121,9 @@ export class ChartComponent implements OnInit {
             }
           },
           y: {
+            grid: {
+              display: false
+            },
             stacked: true,
             scaleLabel: {
               display: true,
@@ -118,7 +135,7 @@ export class ChartComponent implements OnInit {
     }
 
     this.stackCanvas = document.getElementById('StackChart') as HTMLCanvasElement;
-    this.stackCanvas.width = this.labels.length > 20 ? this.labels.length * 100 + 100 : this.stackCanvas.parentElement.offsetWidth;
+    this.stackCanvas.height = this.labels.length > 20 ? this.labels.length * 100 + 100 : this.stackCanvas.parentElement.offsetHeight;
     this.stackCanvasContext = this.stackCanvas.getContext("2d");
 
     if (this.stackChart) {
